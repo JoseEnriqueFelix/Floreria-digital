@@ -40,6 +40,6 @@ docker-compose up --build -d
 
 Una vez que los contenedores estén corriendo:
 
-- Frontend: http://localhost:80
+- Frontend: http://localhost:8080
 - API: http://localhost:3000
 
