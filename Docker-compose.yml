@@ -1,0 +1,39 @@
+services:
+  mysql: 
+    image: mariadb:10.6.21-focal
+    container_name: tienda_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pwpassword
+      MYSQL_DATABASE: tienda
+      MYSQL_USER: pw
+      MYSQL_PASSWORD: admin123
+    ports: 
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./api_tienda/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    
+  api:
+    build: ./api_tienda
+    container_name: tienda_api
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_HOST: mysql
+      DATABASE_USER: pw
+      DATABASE_PASSWORD: admin123
+      DATABASE_NAME: tienda
+    ports:
+      - "3000:3000"
+    
+  frontend:
+    build: ./cliente_tienda
+    container_name: tienda_frontend
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
+
+volumes:
+  mysql_data:
