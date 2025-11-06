@@ -32,7 +32,9 @@ cd Floreria-digital
 ```
 
 2. Construir y levantar los contenedores:
+```bash
 docker-compose up --build -d
+```
 
 ## Uso 🖥️
 
